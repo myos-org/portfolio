@@ -2,9 +2,11 @@ export type DiagramId =
   | "klyro-architecture"
   | "klyro-procurement"
   | "klyro-transfer-states"
-  | "alpide-layers";
+  | "alpide-layers"
+  | "lifesnail-architecture"
+  | "code-review-pipeline";
 
-export type PreviewId = "klyro" | "lifesnail" | "alpide";
+export type PreviewId = "klyro" | "lifesnail" | "code-review" | "alpide";
 
 export type StatusTone = "live" | "active" | "confidential";
 
@@ -61,6 +63,11 @@ export type Project = {
   highlights: string[];
   links: ProjectLink[];
   preview: PreviewId;
+  /**
+   * Brand icon in /public. `tile: "light"` places a transparent mark on a white
+   * tile; `"self"` means the file already is a finished app-icon tile.
+   */
+  icon?: { src: string; tile: "light" | "self" };
   sections: Section[];
   /** Visual weight on the home page. */
   layout: "feature" | "compact";
@@ -70,12 +77,13 @@ export type Role = {
   title: string;
   start: string; // ISO yyyy-mm
   end: string | null; // null = present
+  points: string[];
 };
 
 export type Experience = {
   company: string;
   summary: string;
+  location: string;
   roles: Role[];
-  points: string[];
   caseStudy?: string;
 };

@@ -1,4 +1,5 @@
 import type { PreviewId } from "@/lib/types";
+import { CodeReviewPreview } from "./CodeReviewPreview";
 import { KlyroPreview } from "./KlyroPreview";
 import { LifeSnailPreview } from "./LifeSnailPreview";
 
@@ -8,6 +9,8 @@ export function Preview({ id }: { id: PreviewId }) {
       return <KlyroPreview />;
     case "lifesnail":
       return <LifeSnailPreview />;
+    case "code-review":
+      return <CodeReviewPreview />;
     default:
       return null;
   }

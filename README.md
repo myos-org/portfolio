@@ -1,6 +1,6 @@
 # Aniket Tyagi — Portfolio
 
-Personal portfolio for Aniket Tyagi, Software Engineer (backend & full-stack).
+Personal portfolio for Aniket Tyagi, Software Engineer (full-stack & mobile). Dark by default, with a light theme toggle.
 Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS 4.
 Fully static — no backend, no analytics, no tracking.
 
@@ -52,14 +52,15 @@ Put the real PDF in `public/` and set `site.resume` in `src/lib/site.ts` (e.g. `
 
 Every claim is traceable:
 
-- **Klyro** — `github.com/myos-org/forkify-ERP` (source code plus `docs/audit` and `docs/engineering`). The backend suite was re-run locally on 2026-10-13: 22 tests, 0 failures. Roadmap items (Redis, Kafka, outbox and so on) are labelled as planned.
-- **LifeSnail** — product scope as supplied. The source is private and no public demo was available, so nothing beyond the scope is claimed.
-- **Alpide ERP** — contribution areas as supplied; company description from alpide.com. No internal details.
+- **Klyro** — live at `forkify-erp-851w.vercel.app`; source at `github.com/myos-org/forkify-ERP` (source code plus `docs/audit` and `docs/engineering`). The backend suite was re-run locally on 2026-10-13: 22 tests, 0 failures. Roadmap items (Redis, Kafka, outbox and so on) are labelled as planned.
+- **LifeSnail** — the project README and docs (private repository). Links only to the live app at `my-life-os-diary-web.vercel.app`; no code or screenshots are published.
+- **Code Review** — the project source and README (private repository). README roadmap items not in the code are labelled as planned.
+- **Alpide ERP** — Aniket's LinkedIn profile export (Oct 2026) and the areas of his own commits in the company repositories, described at feature level only. Company description from alpide.com.
+
+Project icons live in `public/projects/<slug>/`: Klyro and LifeSnail use their own brand marks; the Code Review icon was drawn for this site.
 
 ## Open items before publishing
 
-- [ ] Confirm the institution for the B.Sc. Computer Science (Honours with Research), then set `about.education.institution`.
-- [ ] Provide the LifeSnail live URL (and screenshots, if approved). Add it as a `{ kind: "live" }` link.
 - [ ] Confirm whether the original Forkify ERP college project had teammates; adjust Klyro's `role` if so.
 - [ ] Supply a resume PDF (optional).
 - [ ] Set `NEXT_PUBLIC_SITE_URL` once the domain is chosen.

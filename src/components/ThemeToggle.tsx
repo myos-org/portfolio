@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 const STORAGE_KEY = "theme";
@@ -15,15 +15,6 @@ function subscribe(onChange: () => void) {
   return () => observer.disconnect();
 }
 
-function storedTheme(): Theme | null {
-  try {
-    const value = localStorage.getItem(STORAGE_KEY);
-    return value === "light" || value === "dark" ? value : null;
-  } catch {
-    return null;
-  }
-}
-
 function applyTheme(theme: Theme, animate: boolean) {
   const root = document.documentElement;
   if (animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -35,16 +26,6 @@ function applyTheme(theme: Theme, animate: boolean) {
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore<Theme | null>(subscribe, readTheme, () => null);
-
-  // Follow the system setting until the visitor makes an explicit choice.
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onSystemChange = () => {
-      if (!storedTheme()) applyTheme(media.matches ? "dark" : "light", true);
-    };
-    media.addEventListener("change", onSystemChange);
-    return () => media.removeEventListener("change", onSystemChange);
-  }, []);
 
   const toggle = () => {
     const next: Theme = readTheme() === "dark" ? "light" : "dark";

@@ -20,9 +20,11 @@ export const site = {
   name: "Aniket Tyagi",
   title: "Software Engineer",
   description:
-    "Aniket Tyagi is a software engineer building backend systems, databases, ERP workflows and full-stack web and mobile applications.",
+    "Aniket Tyagi is a full-stack software engineer building ERP manufacturing workflows, AI developer tools and web and mobile products.",
   url: readSiteUrl(),
   email: "tyagi007aniket@gmail.com",
+  phone: { display: "+91 87662 32844", href: "tel:+918766232844" },
+  location: "Meerut, Uttar Pradesh, India",
   social: {
     github: "https://github.com/Aniket-ty",
     linkedin: "https://www.linkedin.com/in/aniket-tyagi-728701189/",
@@ -37,7 +39,7 @@ export const site = {
 export const navItems = [
   { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
-  { id: "expertise", label: "Expertise" },
+  { id: "expertise", label: "Stack" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ] as const;

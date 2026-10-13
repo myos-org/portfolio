@@ -5,7 +5,7 @@ import { chromium } from "@playwright/test";
 const base = process.argv[2] ?? "http://localhost:3000";
 const out = process.argv[3] ?? "screenshots";
 const widths = [320, 390, 768, 1024, 1440, 1920];
-const pages = ["/", "/work/klyro", "/work/lifesnail", "/work/alpide-erp"];
+const pages = ["/", "/work/klyro", "/work/lifesnail", "/work/code-review", "/work/alpide-erp"];
 const only = process.env.ONLY?.split(",");
 
 const browser = await chromium.launch();
@@ -13,6 +13,8 @@ for (const theme of ["light", "dark"]) {
   for (const width of widths) {
     if (only && !only.includes(String(width))) continue;
     const ctx = await browser.newContext({ viewport: { width, height: 900 }, colorScheme: theme, reducedMotion: "reduce" });
+    // The site opens dark; light is a stored choice.
+    await ctx.addInitScript((t) => localStorage.setItem("theme", t), theme);
     const page = await ctx.newPage();
     for (const path of pages) {
       await page.goto(base + path, { waitUntil: "networkidle" });

@@ -32,6 +32,11 @@ export function Footer() {
             </a>
           </li>
           <li>
+            <a className="inline-flex min-h-10 items-center text-muted transition-colors hover:text-fg" href={site.phone.href}>
+              {site.phone.display}
+            </a>
+          </li>
+          <li>
             <Link className="inline-flex min-h-10 items-center gap-1.5 text-muted transition-colors hover:text-fg" href="#top">
               Back to top
               <span aria-hidden="true">↑</span>

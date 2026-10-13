@@ -1,14 +1,18 @@
 import type { DiagramId } from "@/lib/types";
+import { CodeReviewPipeline } from "./CodeReviewPipeline";
 import { Figure } from "./Figure";
 import { KlyroArchitecture } from "./KlyroArchitecture";
 import { KlyroProcurement } from "./KlyroProcurement";
 import { KlyroTransferStates } from "./KlyroTransferStates";
 import { LayerStack } from "./LayerStack";
+import { LifeSnailArchitecture } from "./LifeSnailArchitecture";
 
 const diagrams: Record<DiagramId, { label: string; render: () => React.ReactNode }> = {
   "klyro-architecture": { label: "System architecture", render: () => <KlyroArchitecture /> },
   "klyro-procurement": { label: "Procurement → inventory", render: () => <KlyroProcurement /> },
   "klyro-transfer-states": { label: "Transfer lifecycle", render: () => <KlyroTransferStates /> },
+  "lifesnail-architecture": { label: "System architecture", render: () => <LifeSnailArchitecture /> },
+  "code-review-pipeline": { label: "Review pipeline", render: () => <CodeReviewPipeline /> },
   "alpide-layers": {
     label: "One feature, every layer",
     render: () => (

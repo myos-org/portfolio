@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { experience } from "@/content/profile";
 import { getNextProject, getProject, projects } from "@/content/projects";
@@ -55,16 +57,20 @@ describe("projects", () => {
     }
   });
 
-  it("never show a source link for private-source LifeSnail", () => {
+  it("never show a source link for private-source LifeSnail, only the live app", () => {
     const lifesnail = getProject("lifesnail")!;
     expect(lifesnail.status.label.toLowerCase()).toContain("private");
     expect(lifesnail.links.filter((l) => l.kind === "source")).toHaveLength(0);
+    expect(lifesnail.links.map((l) => l.href)).toEqual(["https://my-life-os-diary-web.vercel.app/"]);
   });
 
   it("present Klyro with its original repository, not an invented one", () => {
     const klyro = getProject("klyro")!;
     expect(klyro.formerly).toBe("Forkify ERP");
-    expect(klyro.links.map((l) => l.href)).toEqual(["https://github.com/myos-org/forkify-ERP"]);
+    expect(klyro.links.map((l) => l.href)).toEqual([
+      "https://forkify-erp-851w.vercel.app/",
+      "https://github.com/myos-org/forkify-ERP",
+    ]);
   });
 
   it("mark Klyro's roadmap as planned, not done", () => {
@@ -74,6 +80,18 @@ describe("projects", () => {
     if (phases?.type !== "phases") return;
     const hardening = phases.items.find((p) => p.title.includes("hardening"));
     expect(hardening?.state).toBe("planned");
+  });
+
+  it("never show a source link for private-source Code Review", () => {
+    const review = getProject("code-review")!;
+    expect(review.status.label.toLowerCase()).toContain("private");
+    expect(review.links).toHaveLength(0);
+  });
+
+  it("only reference icons that exist in /public", () => {
+    for (const p of projects) {
+      if (p.icon) expect(existsSync(join(process.cwd(), "public", p.icon.src))).toBe(true);
+    }
   });
 
   it("keep professional work free of links", () => {
@@ -105,18 +123,20 @@ describe("experience", () => {
     }
   });
 
-  it("matches the supplied Alpide ERP timeline", () => {
+  it("matches the LinkedIn Alpide ERP timeline", () => {
     const alpide = experience.find((e) => e.company === "Alpide ERP")!;
-    expect(alpide.roles).toEqual([
+    expect(alpide.roles.map(({ title, start, end }) => ({ title, start, end }))).toEqual([
       { title: "Software Engineer", start: "2026-07", end: null },
-      { title: "Software Engineer Intern", start: "2025-08", end: "2026-06" },
+      { title: "Software Engineer Intern", start: "2025-08", end: "2026-05" },
     ]);
+    for (const role of alpide.roles) expect(role.points.length).toBeGreaterThan(0);
   });
 });
 
 describe("site config", () => {
   it("uses the supplied contact details", () => {
     expect(site.email).toBe("tyagi007aniket@gmail.com");
+    expect(site.phone.href).toBe("tel:+918766232844");
     expect(site.social.github).toBe("https://github.com/Aniket-ty");
     expect(site.social.linkedin).toBe("https://www.linkedin.com/in/aniket-tyagi-728701189/");
   });

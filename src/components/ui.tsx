@@ -7,14 +7,33 @@ export function Container({ children, className = "" }: { children: ReactNode; c
   return <div className={`mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
 }
 
-export function SectionHeading({ index, label, title, id }: { index: string; label: string; title: string; id: string }) {
+export function SectionHeading({
+  index,
+  label,
+  title,
+  accent,
+  id,
+}: {
+  index: string;
+  label: string;
+  title: string;
+  /** Trailing words set in the serif accent face. */
+  accent?: string;
+  id: string;
+}) {
   return (
-    <div className="mb-10 grid gap-3 md:mb-14 md:grid-cols-[10rem_1fr] md:gap-8" data-reveal>
-      <p className="font-mono text-xs tracking-wide text-subtle uppercase md:pt-2.5">
+    <div className="mb-12 grid gap-4 md:mb-16 md:grid-cols-[10rem_1fr] md:gap-8" data-reveal>
+      <p className="font-mono text-xs tracking-wide text-subtle uppercase md:pt-4">
         <span className="text-accent-text">{index}</span> / {label}
       </p>
-      <h2 id={id} className="max-w-2xl text-2xl font-semibold tracking-tight text-fg sm:text-3xl">
+      <h2 id={id} className="max-w-3xl text-4xl leading-[1.05] font-semibold tracking-[-0.035em] text-fg sm:text-5xl">
         {title}
+        {accent && (
+          <>
+            {" "}
+            <span className="serif-accent text-muted">{accent}</span>
+          </>
+        )}
       </h2>
     </div>
   );

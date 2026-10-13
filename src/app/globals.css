@@ -3,72 +3,55 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /*
- * Design tokens.
- * Brand: Midnight Navy #101828 · Electric Blue #3978F6 · Soft White #F7F8FA
- *        Slate Grey #64748B · Subtle Border #D9DDE5
- * Text-on-background pairs are tuned for WCAG AA (≥4.5:1). Electric Blue itself
- * is ~3.8:1 on Soft White, so it is used for marks, rules and focus rings, while
- * accent *text* and filled buttons use a deeper blue in light mode.
+ * Design tokens. Dark is the default (and the no-JS fallback); light is opt-in
+ * via the toggle. Text-on-background pairs are tuned for WCAG AA (>=4.5:1).
+ * One accent — a soft electric blue — used sparingly for marks, rules and focus.
  */
-:root {
-  color-scheme: light;
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface-2: #eef0f4;
-  --fg: #101828;
-  --muted: #4f5d72; /* 6.1:1 on --bg */
-  --subtle: #5b6a7f; /* Slate Grey, deepened to 4.8:1 on surface-2 for small labels */
-  --border: #d9dde5;
-  --border-strong: #b9c0cc;
-  --accent: #3978f6; /* Electric Blue — graphics, rules, focus */
-  --accent-text: #2a63d9; /* 5.1:1 on --bg */
-  --accent-solid: #2a63d9; /* button fill, 5.4:1 with white text */
-  --on-accent: #ffffff;
-  --accent-soft: rgb(57 120 246 / 0.1);
-  --ok: #15803d;
-  --warn: #a15c07;
-  --shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(16 24 40 / 0.12);
-}
-
+:root,
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b1220;
-  --surface: #101a2c;
-  --surface-2: #16223a;
-  --fg: #eeece8; /* warm off-white */
-  --muted: #a3adbd; /* 8.4:1 on --bg */
-  --subtle: #8893a6; /* 5.1:1 on surface-2 */
-  --border: #22304a;
-  --border-strong: #34445f;
-  --accent: #3978f6;
-  --accent-text: #7aa5ff; /* 7.5:1 on --bg */
-  --accent-solid: #6b9bff; /* navy text on it: 7:1 */
-  --on-accent: #0b1220;
-  --accent-soft: rgb(57 120 246 / 0.16);
+  --bg: #09090b;
+  --surface: #111114;
+  --surface-2: #18181c;
+  --fg: #ededea; /* warm off-white */
+  --muted: #a3a3ab; /* 8.1:1 on --bg */
+  --subtle: #8b8b94; /* 5.4:1 on surface-2 */
+  --border: #222227;
+  --border-strong: #35353c;
+  --accent: #7c9cff;
+  --accent-text: #93adff; /* 8.6:1 on --bg */
+  --accent-solid: #ededea; /* primary button: light pill on dark */
+  --on-accent: #09090b;
+  --accent-soft: rgb(124 156 255 / 0.12);
   --ok: #4ade80;
   --warn: #fbbf24;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  --danger: #f87171;
+  --grid: rgb(255 255 255 / 0.06);
+  --glow: rgb(124 156 255 / 0.14);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -20px rgb(0 0 0 / 0.8);
 }
 
-/* No-JS / pre-script fallback: follow the system preference. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    color-scheme: dark;
-    --bg: #0b1220;
-    --surface: #101a2c;
-    --surface-2: #16223a;
-    --fg: #eeece8;
-    --muted: #a3adbd;
-    --subtle: #8893a6; /* 5.1:1 on surface-2 */
-    --border: #22304a;
-    --border-strong: #34445f;
-    --accent-text: #7aa5ff;
-    --accent-solid: #6b9bff;
-    --on-accent: #0b1220;
-    --accent-soft: rgb(57 120 246 / 0.16);
-    --ok: #4ade80;
-    --warn: #fbbf24;
-  }
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --surface-2: #f1f1ee;
+  --fg: #0d0d10;
+  --muted: #53535b; /* 7.4:1 on --bg */
+  --subtle: #64646c; /* 5.3:1 on surface-2 */
+  --border: #e3e3de;
+  --border-strong: #c8c8c2;
+  --accent: #4262f0;
+  --accent-text: #3149c9; /* 6.6:1 on --bg */
+  --accent-solid: #0d0d10;
+  --on-accent: #fafaf8;
+  --accent-soft: rgb(66 98 240 / 0.08);
+  --ok: #15803d;
+  --warn: #a15c07;
+  --danger: #b91c1c;
+  --grid: rgb(13 13 16 / 0.07);
+  --glow: rgb(66 98 240 / 0.1);
+  --shadow: 0 1px 2px rgb(13 13 16 / 0.04), 0 12px 32px -16px rgb(13 13 16 / 0.16);
 }
 
 @theme inline {
@@ -87,8 +70,10 @@
   --color-accent-soft: var(--accent-soft);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
   --shadow-card: var(--shadow);
   --breakpoint-xs: 26rem;
 }
@@ -115,7 +100,7 @@
 
   ::selection {
     background: var(--accent);
-    color: #fff;
+    color: var(--bg);
   }
 
   :focus-visible {
@@ -164,32 +149,45 @@ html.theme-transition *::after {
   }
 }
 
-/* Hero request trace: a single dot travelling down the stack. */
-@keyframes trace {
+/* Hero backdrop: a faint dot grid faded at the edges, plus a soft glow that
+   follows the pointer (position set by Spotlight.tsx; centred without JS). */
+.hero-grid {
+  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+}
+
+.hero-glow {
+  background: radial-gradient(600px circle at var(--mx, 70%) var(--my, 30%), var(--glow), transparent 60%);
+}
+
+/* Serif accent word in display headings. */
+.serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Status dot pulse. */
+@keyframes pulse-ring {
   0% {
-    top: 0%;
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 1;
+    transform: scale(1);
+    opacity: 0.6;
   }
   100% {
-    top: 100%;
+    transform: scale(2.6);
     opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .trace-dot {
-    animation: trace 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .trace-dot {
-    display: none;
+  .pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: currentColor;
+    animation: pulse-ring 2s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
   }
 }

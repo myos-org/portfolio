@@ -16,9 +16,9 @@ test.describe("home", () => {
   test("communicates positioning above the fold", async ({ page }) => {
     await page.goto("/");
     const h1 = page.getByRole("heading", { level: 1 });
-    await expect(h1).toHaveText("I build software that solves real problems.");
+    await expect(h1).toHaveText("I build the systems behind real work.");
     await expect(h1).toBeInViewport();
-    await expect(page.getByText("Software Engineer · Backend & Full-stack")).toBeVisible();
+    await expect(page.getByText("Software Engineer · Full-stack & Mobile")).toBeVisible();
     await expect(page.getByRole("link", { name: /Explore my work/ })).toBeInViewport();
   });
 
@@ -32,7 +32,7 @@ test.describe("home", () => {
   for (const [label, id] of [
     ["Work", "work"],
     ["Experience", "experience"],
-    ["Expertise", "expertise"],
+    ["Stack", "expertise"],
     ["About", "about"],
     ["Contact", "contact"],
   ] as const) {
@@ -60,9 +60,10 @@ test.describe("home", () => {
     const work = page.locator("#work");
     await expect(work.getByRole("link", { name: "Klyro", exact: true })).toHaveAttribute("href", "/work/klyro");
     await expect(work.getByRole("link", { name: "LifeSnail", exact: true })).toHaveAttribute("href", "/work/lifesnail");
-    await expect(work.getByRole("link", { name: "Alpide ERP", exact: true })).toHaveAttribute("href", "/work/alpide-erp");
+    await expect(work.getByRole("link", { name: "Code Review", exact: true })).toHaveAttribute("href", "/work/code-review");
     await expect(work.getByText("Live · source private")).toBeVisible();
     await expect(work.getByText("In active development")).toBeVisible();
+    await expect(work.getByText("In development · source private")).toBeVisible();
   });
 
   test("experience shows both Alpide ERP roles without overlap", async ({ page }) => {
@@ -71,12 +72,14 @@ test.describe("home", () => {
     await expect(roles).toContainText("Software Engineer");
     await expect(roles).toContainText("Jul 2026 — Present");
     await expect(roles).toContainText("Software Engineer Intern");
-    await expect(roles).toContainText("Aug 2025 — Jun 2026");
+    await expect(roles).toContainText("Aug 2025 — May 2026");
+    await expect(page.locator("#experience").getByRole("link", { name: /How I work at Alpide ERP/ })).toHaveAttribute("href", "/work/alpide-erp");
   });
 
   test("contact links are correct", async ({ page }) => {
     await page.goto("/#contact");
     const contact = page.locator("#contact");
+    await expect(contact.getByRole("link", { name: "+91 87662 32844" })).toHaveAttribute("href", "tel:+918766232844");
     await expect(contact.getByRole("link", { name: "tyagi007aniket@gmail.com" })).toHaveAttribute(
       "href",
       "mailto:tyagi007aniket@gmail.com",
@@ -163,39 +166,38 @@ test.describe("keyboard", () => {
 });
 
 test.describe("theme", () => {
-  test("follows the system preference on first visit", async ({ browser }) => {
+  test("opens dark on first visit, whatever the system preference", async ({ browser }) => {
     for (const scheme of ["light", "dark"] as const) {
       const ctx = await browser.newContext({ colorScheme: scheme });
       const page = await ctx.newPage();
       await page.goto("/");
-      await expect(page.locator("html")).toHaveAttribute("data-theme", scheme);
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
       await ctx.close();
     }
   });
 
   test("toggle persists across reloads and navigation", async ({ page }) => {
-    await page.emulateMedia({ colorScheme: "light" });
     await page.goto("/");
     const html = page.locator("html");
-    await expect(html).toHaveAttribute("data-theme", "light");
-    const toggle = page.getByRole("button", { name: "Dark theme" });
-    await expect(toggle).toHaveAttribute("aria-pressed", "false");
-    await toggle.click();
     await expect(html).toHaveAttribute("data-theme", "dark");
+    const toggle = page.getByRole("button", { name: "Dark theme" });
     await expect(toggle).toHaveAttribute("aria-pressed", "true");
+    await toggle.click();
+    await expect(html).toHaveAttribute("data-theme", "light");
+    await expect(toggle).toHaveAttribute("aria-pressed", "false");
     // Poll: the theme switch cross-fades colours for ~200ms.
-    await expect.poll(() => page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe("rgb(11, 18, 32)");
+    await expect.poll(() => page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe("rgb(250, 250, 248)");
 
     await page.reload();
-    await expect(html).toHaveAttribute("data-theme", "dark");
+    await expect(html).toHaveAttribute("data-theme", "light");
     await page.goto("/work/klyro");
-    await expect(html).toHaveAttribute("data-theme", "dark");
+    await expect(html).toHaveAttribute("data-theme", "light");
   });
 
   test("stored theme is applied before first paint (no flash)", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "light" });
     await page.addInitScript(() => {
-      localStorage.setItem("theme", "dark");
+      localStorage.setItem("theme", "light");
       // Record the theme as soon as <body> exists, before any React code runs.
       new MutationObserver((_, obs) => {
         if (document.body) {
@@ -207,7 +209,7 @@ test.describe("theme", () => {
     });
     await page.goto("/");
     const first = await page.evaluate(() => (window as unknown as { __firstTheme?: string }).__firstTheme);
-    expect(first).toBe("dark");
+    expect(first).toBe("light");
   });
 });
 
@@ -219,6 +221,8 @@ test.describe("case studies", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("LifeSnail");
     await expect(page).toHaveTitle("LifeSnail — case study — Aniket Tyagi");
 
+    await page.getByRole("link", { name: /Next case study/ }).click();
+    await expect(page).toHaveURL(/\/work\/code-review$/);
     await page.getByRole("link", { name: /Next case study/ }).click();
     await expect(page).toHaveURL(/\/work\/alpide-erp$/);
     await page.getByRole("link", { name: /Next case study/ }).click();
@@ -251,14 +255,23 @@ test.describe("case studies", () => {
     const main = page.locator("main");
     await expect(main.getByRole("link", { name: /source|github|repository/i })).toHaveCount(0);
     await expect(main.getByText("Live · source private")).toBeVisible();
+    await expect(main.getByRole("link", { name: /Open the live app/ })).toHaveAttribute("href", "https://my-life-os-diary-web.vercel.app/");
   });
 
   test("Klyro links to the original public repository", async ({ page }) => {
     await page.goto("/work/klyro");
     const link = page.locator("main").getByRole("link", { name: /Source on GitHub/ });
     await expect(link).toHaveAttribute("href", "https://github.com/myos-org/forkify-ERP");
+    await expect(page.locator("main").getByRole("link", { name: /Open the live app/ })).toHaveAttribute("href", "https://forkify-erp-851w.vercel.app/");
     await expect(link).toHaveAttribute("target", "_blank");
     await expect(page.getByText("Planned", { exact: true })).toBeVisible();
+  });
+
+  test("Code Review exposes no source links", async ({ page }) => {
+    await page.goto("/work/code-review");
+    const main = page.locator("main");
+    await expect(main.getByRole("link", { name: /source|github|repository/i })).toHaveCount(0);
+    await expect(main.getByText("In development · source private")).toBeVisible();
   });
 
   test("Alpide ERP page has no external links in content", async ({ page }) => {
@@ -276,7 +289,7 @@ test.describe("case studies", () => {
   });
 
   test("all images have alt attributes", async ({ page }) => {
-    for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/alpide-erp"]) {
+    for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/code-review", "/work/alpide-erp"]) {
       await page.goto(path);
       const missing = await page.locator("img:not([alt])").count();
       expect(missing, path).toBe(0);
@@ -290,7 +303,7 @@ test.describe("responsive", () => {
     test(`no horizontal overflow at ${width}px`, async ({ browser }) => {
       const ctx = await browser.newContext({ viewport: { width, height: 900 } });
       const page = await ctx.newPage();
-      for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/alpide-erp", "/work/missing"]) {
+      for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/code-review", "/work/alpide-erp", "/work/missing"]) {
         await page.goto(path);
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
         expect(overflow, `${path} @ ${width}`).toBeLessThanOrEqual(0);
@@ -304,14 +317,13 @@ test.describe("responsive", () => {
 });
 
 test.describe("reduced motion", () => {
-  test("content is visible immediately and the trace animation is off", async ({ browser }) => {
+  test("content is visible immediately and smooth scrolling is off", async ({ browser }) => {
     const ctx = await browser.newContext({ reducedMotion: "reduce" });
     const page = await ctx.newPage();
     await page.goto("/");
     // Without scrolling, below-the-fold content must already be fully opaque.
     const opacity = await page.locator("#contact [data-reveal]").first().evaluate((el) => getComputedStyle(el).opacity);
     expect(opacity).toBe("1");
-    await expect(page.locator(".trace-dot")).toBeHidden();
     const behavior = await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior);
     expect(behavior).toBe("auto");
     await ctx.close();
@@ -320,9 +332,10 @@ test.describe("reduced motion", () => {
 
 test.describe("accessibility (axe, WCAG 2.2 AA)", () => {
   for (const theme of ["light", "dark"] as const) {
-    for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/alpide-erp", "/work/missing"]) {
+    for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/code-review", "/work/alpide-erp", "/work/missing"]) {
       test(`${path} in ${theme} theme`, async ({ browser }) => {
-        const ctx = await browser.newContext({ colorScheme: theme, reducedMotion: "reduce" });
+        const ctx = await browser.newContext({ reducedMotion: "reduce" });
+        await ctx.addInitScript((t) => localStorage.setItem("theme", t), theme);
         const page = await ctx.newPage();
         await page.goto(path);
         const results = await new AxeBuilder({ page })
@@ -349,7 +362,7 @@ test.describe("accessibility (axe, WCAG 2.2 AA)", () => {
 test.describe("seo", () => {
   test("pages have unique titles, descriptions and OG data", async ({ page }) => {
     const seen = new Set<string>();
-    for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/alpide-erp"]) {
+    for (const path of ["/", "/work/klyro", "/work/lifesnail", "/work/code-review", "/work/alpide-erp"]) {
       await page.goto(path);
       const title = await page.title();
       expect(seen.has(title)).toBe(false);

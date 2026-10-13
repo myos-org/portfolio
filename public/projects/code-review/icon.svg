@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Code Review: diff lines under a lens that has approved the change -->
+  <rect width="128" height="128" rx="28" fill="#0E1116" />
+  <rect x="24" y="30" width="46" height="8" rx="4" fill="#2E3440" />
+  <rect x="24" y="48" width="32" height="8" rx="4" fill="#F87171" />
+  <rect x="24" y="66" width="40" height="8" rx="4" fill="#34D399" />
+  <rect x="24" y="84" width="26" height="8" rx="4" fill="#2E3440" />
+  <path d="M96 84 L107 95" stroke="#F4F4F2" stroke-width="9" stroke-linecap="round" />
+  <circle cx="80" cy="66" r="21" fill="#0E1116" stroke="#F4F4F2" stroke-width="7" />
+  <path d="M70.5 66.5 L77 73 L89.5 60" stroke="#34D399" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

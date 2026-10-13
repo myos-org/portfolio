@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Diagram } from "@/components/diagrams";
 import { Preview } from "@/components/previews";
+import { ProjectIcon } from "@/components/ProjectIcon";
 import { ArrowLink, Container, ExternalLink, RichText, StatusBadge, Tag } from "@/components/ui";
 import type { Block, Project } from "@/lib/types";
 
@@ -109,11 +110,12 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
 
         <header className="mt-6 grid gap-10 border-b border-line pb-12 lg:grid-cols-[1.3fr_1fr] lg:gap-14 md:pb-16">
           <div>
+            <ProjectIcon project={project} size="lg" className="mb-8" />
             <div className="flex flex-wrap items-center gap-3">
               <p className="font-mono text-[11px] tracking-wide text-accent-text uppercase">{project.category}</p>
               <StatusBadge {...project.status} />
             </div>
-            <h1 id="case-title" className="mt-4 text-4xl font-semibold tracking-[-0.03em] text-fg sm:text-5xl md:text-6xl">
+            <h1 id="case-title" className="mt-4 text-5xl font-semibold tracking-[-0.045em] text-fg sm:text-6xl md:text-7xl">
               {project.name}
             </h1>
             {project.formerly && <p className="mt-2 text-muted">Formerly {project.formerly}</p>}
@@ -198,7 +200,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
                 <span className="font-mono text-xs text-accent-text" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h2 id={`${section.id}-title`} className="text-2xl font-semibold tracking-tight text-fg">
+                <h2 id={`${section.id}-title`} className="text-3xl font-semibold tracking-[-0.03em] text-fg">
                   {section.title}
                 </h2>
               </div>
@@ -215,11 +217,12 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
       <Container className="pb-20 md:pb-28">
         <Link
           href={`/work/${next.slug}`}
-          className="group flex flex-col gap-2 rounded-2xl border border-line bg-surface p-6 transition-[border-color,box-shadow] duration-300 hover:border-line-strong hover:shadow-card sm:flex-row sm:items-center sm:justify-between sm:p-8"
+          className="group flex flex-col gap-5 rounded-2xl border border-line bg-surface p-6 transition-[border-color,box-shadow] duration-300 hover:border-line-strong hover:shadow-card sm:flex-row sm:items-center sm:p-8"
         >
-          <span>
+          <ProjectIcon project={next} />
+          <span className="flex-1">
             <span className="block font-mono text-[11px] tracking-wide text-subtle uppercase">Next case study</span>
-            <span className="mt-1 block text-2xl font-semibold tracking-tight text-fg">{next.name}</span>
+            <span className="mt-1 block text-3xl font-semibold tracking-[-0.03em] text-fg">{next.name}</span>
             <span className="mt-1 block text-sm text-muted">{next.category}</span>
           </span>
           <span className="text-2xl text-accent-text transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
