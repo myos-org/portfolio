@@ -6,5 +6,5 @@ export const size = ogSize;
 export const contentType = "image/png";
 
 export default function Image() {
-  return renderOg({ eyebrow: hero.eyebrow, title: `${hero.headline.before} ${hero.headline.accent} ${hero.headline.after}`, subtitle: "ERP manufacturing workflows · AI developer tools · web and mobile" });
+  return renderOg({ eyebrow: hero.eyebrow, title: `${hero.headline.before} ${hero.headline.accent} ${hero.headline.after}`, subtitle: "ERP software · AI developer tools · web and mobile" });
 }

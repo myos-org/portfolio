@@ -16,9 +16,9 @@ test.describe("home", () => {
   test("communicates positioning above the fold", async ({ page }) => {
     await page.goto("/");
     const h1 = page.getByRole("heading", { level: 1 });
-    await expect(h1).toHaveText("I build the systems behind real work.");
+    await expect(h1).toHaveText("I build the software businesses run on.");
     await expect(h1).toBeInViewport();
-    await expect(page.getByText("Software Engineer · Full-stack & Mobile")).toBeVisible();
+    await expect(page.getByText("Software Engineer · Full-stack, ERP & Mobile")).toBeVisible();
     await expect(page.getByRole("link", { name: /Explore my work/ })).toBeInViewport();
   });
 
@@ -95,9 +95,15 @@ test.describe("home", () => {
     }
   });
 
-  test("no resume action while no resume file exists", async ({ page }) => {
+  test("resume downloads the published PDF", async ({ page, request }) => {
     await page.goto("/");
-    await expect(page.getByRole("link", { name: /resume/i })).toHaveCount(0);
+    if (isMobile(page)) await page.getByRole("button", { name: "Open menu" }).click();
+    const link = page.getByRole("link", { name: /resume/i }).filter({ visible: true }).first();
+    await expect(link).toHaveAttribute("href", "/aniket-tyagi-resume.pdf");
+    await expect(link).toHaveAttribute("download", "");
+    const res = await request.get("/aniket-tyagi-resume.pdf");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toContain("application/pdf");
   });
 
   test("footer shows the current year", async ({ page }) => {

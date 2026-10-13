@@ -20,7 +20,7 @@ export const site = {
   name: "Aniket Tyagi",
   title: "Software Engineer",
   description:
-    "Aniket Tyagi is a full-stack software engineer building ERP manufacturing workflows, AI developer tools and web and mobile products.",
+    "Aniket Tyagi is a full-stack software engineer building ERP software across sales, purchase, inventory, CRM and manufacturing, plus AI developer tools and web and mobile products.",
   url: readSiteUrl(),
   email: "tyagi007aniket@gmail.com",
   phone: { display: "+91 87662 32844", href: "tel:+918766232844" },
@@ -30,10 +30,10 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/aniket-tyagi-728701189/",
   },
   /**
-   * Path to an authentic resume PDF in /public (e.g. "/aniket-tyagi-resume.pdf").
-   * Leave null until a real file is supplied — the resume action stays hidden.
+   * Path to the resume PDF in /public, built from resume/resume.html by
+   * `node resume/build.mjs`. Set to null to hide the resume action.
    */
-  resume: null as string | null,
+  resume: "/aniket-tyagi-resume.pdf" as string | null,
 } as const;
 
 export const navItems = [

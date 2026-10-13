@@ -3,7 +3,7 @@ import { CopyEmail } from "@/components/CopyEmail";
 import { ProjectRow } from "@/components/ProjectCard";
 import { Spotlight } from "@/components/Spotlight";
 import { ArrowLink, Container, ExternalLink, SectionHeading } from "@/components/ui";
-import { about, experience, expertise, hero } from "@/content/profile";
+import { about, experience, expertise, hero, leadership } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { formatRange } from "@/lib/format";
 import { site } from "@/lib/site";
@@ -137,6 +137,18 @@ export default function Home() {
                   </dd>
                 </div>
                 <div className="p-5">
+                  <dt className="font-mono text-[11px] tracking-wide text-subtle uppercase">Leadership</dt>
+                  {leadership.map((item) => (
+                    <dd key={item.role} className="mt-1.5">
+                      <span className="text-fg">{item.role}</span>
+                      <span className="block text-muted">
+                        {item.org}
+                        {item.date && ` · ${item.date}`}
+                      </span>
+                    </dd>
+                  ))}
+                </div>
+                <div className="p-5">
                   <dt className="font-mono text-[11px] tracking-wide text-subtle uppercase">Focus</dt>
                   <dd className="mt-1.5 text-fg">Full-stack, backend-first — ERP, AI tools and mobile</dd>
                 </div>
@@ -227,6 +239,17 @@ function Hero() {
           {hero.headline.after}
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{hero.lede}</p>
+
+        <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2">
+          <p className="font-mono text-[11px] tracking-wide text-subtle uppercase">Shipped in</p>
+          <ul className="flex flex-wrap gap-1.5" aria-label="ERP modules I've shipped features in">
+            {hero.modules.map((m) => (
+              <li key={m} className="rounded-full border border-line bg-surface/70 px-3 py-1 text-[13px] text-fg backdrop-blur">
+                {m}
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
           <Link

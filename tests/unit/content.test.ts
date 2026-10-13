@@ -1,7 +1,8 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { experience } from "@/content/profile";
+import { readFileSync } from "node:fs";
+import { about, experience, leadership } from "@/content/profile";
 import { getNextProject, getProject, projects } from "@/content/projects";
 import { formatMonth, formatRange, splitCode } from "@/lib/format";
 import { site } from "@/lib/site";
@@ -133,6 +134,16 @@ describe("experience", () => {
   });
 });
 
+describe("resume", () => {
+  it("states the same degree and institution as the site", () => {
+    const html = readFileSync(join(process.cwd(), "resume", "resume.html"), "utf8");
+    expect(html).toContain(about.education.degree);
+    expect(html).toContain(about.education.institution!);
+    expect(html).toContain("August 2022 – July 2026");
+    for (const item of leadership) expect(html).toContain(`<b>${item.role}</b>, ${item.org}`);
+  });
+});
+
 describe("site config", () => {
   it("uses the supplied contact details", () => {
     expect(site.email).toBe("tyagi007aniket@gmail.com");
@@ -141,7 +152,8 @@ describe("site config", () => {
     expect(site.social.linkedin).toBe("https://www.linkedin.com/in/aniket-tyagi-728701189/");
   });
 
-  it("hides the resume until a real file is supplied", () => {
-    expect(site.resume).toBeNull();
+  it("links a resume that exists in /public", () => {
+    expect(site.resume).toBe("/aniket-tyagi-resume.pdf");
+    expect(existsSync(join(process.cwd(), "public", site.resume!))).toBe(true);
   });
 });

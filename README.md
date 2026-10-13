@@ -44,9 +44,15 @@ No environment variables are required. Optional:
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Production origin, e.g. `https://anikettyagi.dev`. Enables canonical URLs, absolute OG image URLs and sitemap entries. If unset on Vercel, `VERCEL_PROJECT_PRODUCTION_URL` is used; if neither is set, canonical and sitemap entries are omitted rather than filled with a placeholder. |
 
-## Enabling the resume
+## Resume
 
-Put the real PDF in `public/` and set `site.resume` in `src/lib/site.ts` (e.g. `"/aniket-tyagi-resume.pdf"`). The header and mobile menu then show a download action. Update the unit test that asserts `resume` is `null`.
+The resume source is `resume/resume.html` (one A4 page, ATS-friendly single column). After editing it, rebuild the PDF the site serves:
+
+```
+node resume/build.mjs                       # writes public/aniket-tyagi-resume.pdf
+```
+
+The header and mobile menu link to it via `site.resume` in `src/lib/site.ts`.
 
 ## Content sources
 
@@ -62,5 +68,4 @@ Project icons live in `public/projects/<slug>/`: Klyro and LifeSnail use their o
 ## Open items before publishing
 
 - [ ] Confirm whether the original Forkify ERP college project had teammates; adjust Klyro's `role` if so.
-- [ ] Supply a resume PDF (optional).
 - [ ] Set `NEXT_PUBLIC_SITE_URL` once the domain is chosen.

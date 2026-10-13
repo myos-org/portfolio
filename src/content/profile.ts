@@ -6,13 +6,14 @@ import type { Experience } from "@/lib/types";
  */
 
 export const hero = {
-  eyebrow: "Software Engineer · Full-stack & Mobile",
-  headline: { before: "I build the", accent: "systems", after: "behind real work." },
-  lede: "Full-stack engineer at Alpide ERP, building the manufacturing side of a cloud ERP — MRP, capacity scheduling, shop-floor execution — in Java, Spring Boot, React and MySQL. Outside work I build my own products, from the schema to the screen.",
+  eyebrow: "Software Engineer · Full-stack, ERP & Mobile",
+  headline: { before: "I build the", accent: "software", after: "businesses run on." },
+  lede: "Full-stack engineer at Alpide ERP — from sales orders and supplier RFQs to CRM calling, HR workflows and production planning — in Java, Spring Boot, React, React Native and MySQL. Outside work I build my own products, from the schema to the screen.",
+  modules: ["Sales", "Purchase", "Inventory", "CRM", "HRMS", "Finance", "Manufacturing"],
   current: { role: "Software Engineer", company: "Alpide ERP" },
   location: "Noida, India",
   stats: [
-    { value: "6+", label: "ERP modules worked across" },
+    { value: "6+", label: "ERP modules shipped in" },
     { value: "3", label: "products built end to end" },
     { value: "2025", label: "shipping at Alpide since" },
   ],
@@ -29,11 +30,11 @@ export const experience: Experience[] = [
         start: "2026-07",
         end: null,
         points: [
-          "Manufacturing planning: master production schedules and MRP runs — results, exceptions, and converting planned orders into work orders and purchase requests.",
-          "Built a finite-capacity scheduling engine that books work orders against each work center's shift calendar and resource pool, with side-effect-free previews and cost- or time-first strategies.",
-          "Turned work-center capacity from a single number into real machines, labour and equipment with status and efficiency, shared by the scheduler and the shop floor.",
-          "Designed the manufacturing audit trail: every create, update and delete across the module, plus business events, recorded with full snapshots — without ever blocking the business transaction.",
-          "Built an RFQ comparison sheet that ranks supplier quotes item by item, supports split awards and generates one purchase order per supplier.",
+          "Sales and purchase: built an RFQ comparison sheet that ranks supplier quotes item by item and generates one purchase order per supplier; added sales-order close, quotation profitability and configurable FIFO stock deduction when quotes become orders.",
+          "Inventory: inventory ledger and movement reports, stock adjustments and consumable requests, backed by MySQL views and stored procedures.",
+          "Manufacturing: MRP runs and a finite-capacity scheduling engine that books work orders against shift calendars and real machine, labour and equipment resources.",
+          "Designed a transaction audit trail — full snapshots of every change plus business events — written asynchronously so it can never block or roll back a save.",
+          "Finance screens (reconciliation, business expenses, payments), PDF templates for business documents, and product pages for the marketing site.",
         ],
       },
       {
@@ -41,11 +42,10 @@ export const experience: Experience[] = [
         start: "2025-08",
         end: "2026-05",
         points: [
-          "Shop-floor execution: operator assignment, setup, run and inspection time, scrap and quality checks, with inventory deducted as operations complete.",
-          "Bills of materials and routings — variants, sub-assemblies, phantom kits — and work-order material request, issue and consumption.",
-          "Subcontracting: subcontract purchase orders, material issue slips, returnable challans and quality checks on goods receipt.",
-          "Integrations: Exotel calling for the CRM, email campaigns, and multi-account Google and Microsoft mail and calendar sync.",
-          "Fixes and features across Sales, Purchase, Inventory and Accounting — from FIFO stock deduction on order conversion to inventory ledger reports.",
+          "CRM: Exotel calling with webhooks, leads, opportunities and meetings, scheduled email campaigns, and multi-account Google and Microsoft mail and calendar sync.",
+          "Purchase: subcontract purchase orders, material issue slips, returnable challans, store requisitions and quality checks on goods receipt.",
+          "HRMS and accounting: features and fixes across leave, shifts and overtime, and debugging critical sales, purchase and accounting flows.",
+          "Manufacturing: BOMs and routings, and shop-floor execution on web and React Native, with inventory deducted as operations complete.",
         ],
       },
     ],
@@ -90,14 +90,24 @@ export const expertise: { area: string; note: string; items: string[] }[] = [
   },
 ];
 
+/** Kept in step with the Leadership section of resume/resume.html. */
+export const leadership: { role: string; org: string; date?: string }[] = [
+  { role: "President", org: "Computer Science Society, University of Delhi" },
+  {
+    role: "Student Judge",
+    org: "Innovate X Hackathon 2026 (inter-college), Shyam Lal College, University of Delhi",
+    date: "February 2026",
+  },
+];
+
 export const about = {
   paragraphs: [
-    "I'm a software engineer who likes the parts of a product where numbers have to agree — stock, orders, money. At Alpide ERP I work across Java services, SQL, React and React Native, mostly on manufacturing and inventory workflows.",
+    "I'm a software engineer who likes the parts of a product where numbers have to agree — stock, orders, money. At Alpide ERP I work across Java services, SQL, React and React Native — on sales, purchase, inventory, CRM, HRMS and manufacturing.",
     "Outside work I build my own products — Klyro, LifeSnail and Code Review — where I make every call, from the schema to the screen. I care about software that is useful, honest about what it does, and easy to keep working.",
   ],
   education: {
-    degree: "B.Sc. (Hons.) Computer Science",
+    degree: "Bachelor of Science (Honours with Research), Computer Science",
     institution: "University of Delhi" as string | null,
-    status: "2022 — 2026",
+    status: "August 2022 — July 2026",
   },
 };

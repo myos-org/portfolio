@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Aniket Tyagi — Resume</title>
+<style>
+  @page { size: A4; margin: 8mm 12mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Charter, "Bitstream Charter", Georgia, serif;
+    font-size: 9.3pt;
+    line-height: 1.29;
+    color: #111;
+  }
+  a { color: inherit; text-decoration: none; }
+  h1 { font-size: 22pt; font-weight: 400; text-align: center; letter-spacing: 0.2px; }
+  .contact { text-align: center; margin-top: 1.5pt; font-size: 9pt; }
+  .contact span + span::before { content: "|"; margin: 0 6pt; color: #555; }
+  h2 {
+    font-size: 11.5pt;
+    font-weight: 700;
+    border-bottom: 0.8pt solid #111;
+    margin-top: 6pt;
+    margin-bottom: 3pt;
+    padding-bottom: 1pt;
+  }
+  .row { display: flex; justify-content: space-between; gap: 12pt; margin-top: 4pt; }
+  .row .right { white-space: nowrap; }
+  ul { margin: 1.5pt 0 0 13pt; }
+  li { margin-top: 1.4pt; padding-left: 1pt; }
+  .summary { text-align: left; }
+  .skills div { margin-top: 1pt; }
+  .muted { color: #333; }
+</style>
+</head>
+<body>
+  <h1>Aniket Tyagi</h1>
+  <p class="contact">
+    <span>Meerut, India</span>
+    <span><a href="mailto:tyagi007aniket@gmail.com">tyagi007aniket@gmail.com</a></span>
+    <span><a href="tel:+918766232844">+91 87662 32844</a></span>
+  </p>
+  <p class="contact">
+    <span><a href="https://www.linkedin.com/in/aniket-tyagi-728701189/">linkedin.com/in/aniket-tyagi-728701189</a></span>
+    <span><a href="https://github.com/Aniket-ty">github.com/Aniket-ty</a></span>
+    <span><a href="https://portfolio-eta-seven-hthvhcrnl1.vercel.app/">portfolio-eta-seven-hthvhcrnl1.vercel.app</a></span>
+  </p>
+
+  <h2>Summary</h2>
+  <p class="summary">
+    Software Engineer at Alpide, shipping features across a cloud ERP — <b>sales, purchase, inventory, CRM, HRMS and
+    manufacturing</b> — on Java/Spring Boot microservices, MySQL, React and React Native.
+    Outside work, I design and ship my own products end to end, from database schema and APIs to web and mobile clients.
+  </p>
+
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <div><b>Languages:</b> Java, JavaScript, TypeScript, SQL, Python</div>
+    <div><b>Backend:</b> Spring Boot, Spring Security, JPA/Hibernate, Spring Cloud, REST APIs, Node.js, Express, FastAPI</div>
+    <div><b>Frontend &amp; Mobile:</b> React, Redux, Ant Design, Tailwind CSS, React Native, Expo</div>
+    <div><b>Databases:</b> MySQL, PostgreSQL, Prisma, Views, Stored Procedures, Schema Design</div>
+    <div><b>Testing &amp; Tools:</b> JUnit 5, pytest, Jest, GitHub Actions, Docker Compose, Git</div>
+    <div><b>Domain &amp; AI:</b> ERP (Sales, Purchase, Inventory, CRM, HRMS, Manufacturing/MRP), LangGraph, LLM APIs, OCR</div>
+  </div>
+
+  <h2>Experience</h2>
+  <div class="row"><span><b>Software Engineer</b>, Alpide ERP – Noida</span><span class="right">July 2026 – Present</span></div>
+  <ul>
+    <li>Built an <b>RFQ comparison sheet</b> that ranks supplier quotes per item, supports split awards and generates one purchase order per supplier by reusing the existing PO pipeline.</li>
+    <li>Added sales-order close, quotation profitability and configurable <b>FIFO stock deduction</b> on quote-to-order conversion; built inventory ledger and movement reports on MySQL views and stored procedures.</li>
+    <li>Implemented a <b>transaction audit trail</b> across 32 entity types using JPA entity listeners and asynchronous writes in a separate transaction, so an audit failure never rolls back a business change.</li>
+    <li>Designed MRP runs and a <b>finite-capacity scheduling engine</b> that books work orders against shift calendars and machine, labour and equipment resources, with side-effect-free previews.</li>
+    <li>Built finance screens (reconciliation, expenses, payments) and Node.js PDF templates for business documents.</li>
+  </ul>
+
+  <div class="row"><span><b>Software Engineer Intern</b>, Alpide ERP – Noida</span><span class="right">August 2025 – May 2026</span></div>
+  <ul>
+    <li>Integrated <b>Exotel</b> calling into the CRM via webhooks; built email campaigns and multi-account Google/Microsoft mail and calendar sync.</li>
+    <li>Delivered <b>subcontract purchase orders</b> with material issue slips, returnable challans, store requisitions and goods-receipt quality checks.</li>
+    <li>Shipped HRMS features (leave, shifts, overtime), debugged sales, purchase and accounting flows, and built shop-floor execution on web and React Native.</li>
+  </ul>
+
+  <h2>Projects</h2>
+  <div class="row">
+    <span><b>Klyro</b> (formerly Forkify ERP) | Java 17, Spring Boot 3, MySQL, React 19, React Native</span>
+    <span class="right"><a href="https://forkify-erp-851w.vercel.app/">Live</a> | <a href="https://github.com/myos-org/forkify-ERP">GitHub</a></span>
+  </div>
+  <ul>
+    <li>Multi-branch restaurant ERP — recipe costing, inventory, procurement, inter-branch transfers and QR ordering — on one JWT-secured API serving web and mobile.</li>
+    <li>Audited every module and <b>fixed 12 defects</b>, including disabled users still able to sign in, transfers driving stock negative and a Hibernate cascade duplicating recipe ingredients.</li>
+    <li>Added <b>22 backend integration tests</b> (JUnit 5, H2) and a GitHub Actions CI pipeline.</li>
+  </ul>
+
+  <div class="row">
+    <span><b>LifeSnail</b> | Node.js, Express, PostgreSQL, Prisma, React, React Native, FastAPI</span>
+    <span class="right"><a href="https://my-life-os-diary-web.vercel.app/">Live</a></span>
+  </div>
+  <ul>
+    <li>Personal life OS: expenses, Splitwise-style groups (four split modes, debt simplification), budgets, fitness and food logging, and reminders across web and mobile.</li>
+    <li>Built one command pipeline for voice and text where a <b>deterministic parser handles common commands without an LLM call</b>, with automatic fallback across Groq, Gemini, OpenRouter and OpenAI.</li>
+    <li>Restricted the AI assistant to 16 validated tools; every write returns a pending action the user confirms. Bill scanning chains OCR, AI interpretation and rule-based total checks.</li>
+  </ul>
+
+  <div class="row">
+    <span><b>Code Review</b> | Python, LangGraph, FastAPI, Streamlit</span>
+    <span class="right">In development</span>
+  </div>
+  <ul>
+    <li>LangGraph agent that reviews GitHub PRs and <b>grounds findings against the diff</b>, discarding comments on files the PR doesn't touch; bring-your-own-key across five LLM providers, with keys never logged or stored.</li>
+  </ul>
+
+  <h2>Education</h2>
+  <div class="row"><span><b>University of Delhi</b> — Bachelor of Science (Honours with Research), Computer Science</span><span class="right">August 2022 – July 2026</span></div>
+
+  <h2>Leadership</h2>
+  <ul>
+    <li><b>President</b>, Computer Science Society, University of Delhi</li>
+    <li><div class="row" style="margin-top:0"><span><b>Student Judge</b>, Innovate X Hackathon 2026 (inter-college), Shyam Lal College, University of Delhi</span><span class="right">February 2026</span></div></li>
+  </ul>
+</body>
+</html>

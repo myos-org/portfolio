@@ -630,17 +630,17 @@ const alpide: Project = {
   name: "Alpide ERP",
   category: "Professional work",
   summary:
-    "The manufacturing side of a cloud ERP — MRP, finite-capacity scheduling, shop-floor execution and audit trails — plus purchasing, inventory and integrations. First as an intern, now full-time.",
+    "Features across a cloud ERP — sales, purchase, inventory, CRM, HRMS, finance and manufacturing — on React, Java services and MySQL. First as an intern, now full-time.",
   intro:
-    "Alpide ERP is a cloud ERP platform used by manufacturers, distributors and e-commerce businesses. I joined its engineering team as a Software Engineer Intern in August 2025 and moved into a full-time Software Engineer role in July 2026. Most of my work is in manufacturing, across the React web app, the Java services and the SQL beneath them.",
+    "Alpide ERP is a cloud ERP platform used by manufacturers, distributors and e-commerce businesses. I joined its engineering team as a Software Engineer Intern in August 2025 and moved into a full-time Software Engineer role in July 2026. I work across most of the product — sales, purchase, inventory, CRM, HRMS, finance and manufacturing — and across its layers: the React web app, the Java services, the SQL beneath them and the React Native app.",
   status: { label: "Professional · confidential", tone: "confidential" },
   period: "Aug 2025 — present",
   role: "Software Engineer, within the engineering team",
   stack: ["Java 17", "Spring Boot 3", "Spring Cloud", "MySQL", "React", "Redux", "Ant Design", "React Native", "Node.js (PDF)"],
   highlights: [
-    "MRP, finite-capacity scheduling and shop-floor execution",
-    "Manufacturing audit trail and RFQ comparison",
-    "Manufacturing, Inventory, Sales, Purchase, Accounting, HRMS",
+    "RFQ comparison, subcontracting and sales-order workflows",
+    "CRM integrations: Exotel calling, mail and calendar sync",
+    "Inventory ledgers, audit trail and capacity scheduling",
   ],
   links: [],
   preview: "alpide",
@@ -663,13 +663,13 @@ const alpide: Project = {
         {
           type: "facts",
           items: [
-            { term: "Planning", detail: "Master production schedules and MRP runs, with results, exceptions and conversion of planned orders into work orders and purchase requests; plus the masters behind them — lot-sizing rules, demand sources, time standards." },
-            { term: "Capacity", detail: "Finite-capacity scheduling of work orders against work centers, their shift calendars and their pools of machines, labour and equipment." },
-            { term: "Production", detail: "Bills of materials and routings, work-order materials (request, issue, consumption, scrap), and shop-floor execution with operator assignment, time tracking and quality checks." },
-            { term: "Purchasing", detail: "RFQ comparison and award, subcontract purchase orders, material issue slips, returnable challans and goods-receipt quality checks." },
-            { term: "Inventory & sales", detail: "Inventory ledger and movement reports, stock adjustments, consumable requests, order close and FIFO stock deduction on conversion." },
-            { term: "Integrations", detail: "Exotel calling, email campaigns, and Google and Microsoft mail and calendar sync for the CRM." },
-            { term: "Documents", detail: "PDF templates for production schedules, work orders, planned orders, material issue slips and quotes." },
+            { term: "Sales", detail: "Sales-order close, quotation profitability, a setting for how stock is deducted (FIFO by default) when a quote becomes an order, and customer–supplier party sync." },
+            { term: "Purchase", detail: "RFQ comparison and award, subcontract purchase orders, material issue slips, returnable challans, store requisitions and goods-receipt quality checks." },
+            { term: "Inventory", detail: "Inventory ledger and movement reports, stock adjustments, consumable requests and inventory issue management." },
+            { term: "CRM", detail: "Leads, opportunities and meetings; Exotel calling with webhooks; scheduled email campaigns; multi-account Google and Microsoft mail and calendar sync." },
+            { term: "HRMS & finance", detail: "Leave, shifts and overtime; reconciliation, business-expense and payment screens; fixes in critical accounting flows." },
+            { term: "Manufacturing", detail: "BOMs and routings, MRP runs, finite-capacity scheduling and shop-floor execution, with inventory deducted as operations complete." },
+            { term: "Documents & web", detail: "PDF templates for quotes, work orders and issue slips; product pages for the marketing site; screens for the internal content admin." },
           ],
         },
       ],
@@ -682,20 +682,20 @@ const alpide: Project = {
           type: "facts",
           items: [
             {
-              term: "One scheduling engine, four callers",
-              detail: "The same engine serves the schedule preview, MRP validation, work-order commit and load adjustment. It reads shift calendars — working days, breaks, overtime — keeps operations in sequence, refuses overlapping bookings on a resource and locks work orders that have started. Previews are pure simulations that never write.",
-            },
-            {
               term: "An audit trail that can't break a save",
               detail: "Entity listeners publish events; an asynchronous listener writes the audit record in its own transaction. A failed audit write never rolls back the business change, and each record carries a full snapshot plus typed traceability fields.",
             },
             {
-              term: "Capacity as real resources",
-              detail: "A work center's capacity used to be a single number. Modelling each machine, operator and piece of equipment with a status and efficiency lets the scheduler pick a resource and the shop floor record who did the work.",
-            },
-            {
               term: "Reuse over rebuild",
               detail: "The RFQ comparison is computed live from the RFQ itself and hands the award to the existing purchase-order generator, rather than adding a parallel document flow. Reference links connect each document to the one it came from — MRP to purchase request, work order to subcontract PO.",
+            },
+            {
+              term: "Third-party integrations",
+              detail: "Exotel calling reaches the CRM through webhooks, and mail and calendar sync supports several Google and Microsoft accounts per user, so calls, email and meetings sit alongside the leads and opportunities they relate to.",
+            },
+            {
+              term: "One scheduling engine, four callers",
+              detail: "The same engine serves the schedule preview, MRP validation, work-order commit and load adjustment. It reads shift calendars — working days, breaks, overtime — keeps operations in sequence, refuses overlapping bookings on a resource and locks work orders that have started. Previews are pure simulations that never write.",
             },
           ],
         },
@@ -722,7 +722,7 @@ const alpide: Project = {
         },
         {
           type: "p",
-          text: "Because I work on every layer, I can follow a requirement — or a bug — from the screen down to the query and back. Much of the hardest debugging is cross-module: an inventory commit, a BOM component and a manufacturing transaction that all have to agree.",
+          text: "Because I work on every layer, I can follow a requirement — or a bug — from the screen down to the query and back. Much of the hardest debugging is cross-module: a sales order, a stock commit and a purchase receipt that all have to agree.",
         },
       ],
     },
@@ -739,7 +739,7 @@ const alpide: Project = {
             },
             {
               term: "Services that call each other",
-              detail: "Manufacturing depends on inventory, purchase and sales services. Inter-service calls need fallbacks, and a change to one contract has to keep the others working.",
+              detail: "Sales, purchase, inventory, CRM and manufacturing are separate services that call each other. Inter-service calls need fallbacks, and a change to one contract has to keep the others working.",
             },
             {
               term: "Numbers that have to agree",
