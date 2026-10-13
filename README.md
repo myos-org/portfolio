@@ -58,7 +58,7 @@ The header and mobile menu link to it via `site.resume` in `src/lib/site.ts`.
 
 Every claim is traceable:
 
-- **Klyro** — live at `forkify-erp-851w.vercel.app`; source at `github.com/myos-org/forkify-ERP` (source code plus `docs/audit` and `docs/engineering`). The backend suite was re-run locally on 2026-10-13: 22 tests, 0 failures. Roadmap items (Redis, Kafka, outbox and so on) are labelled as planned.
+- **Klyro** — live at `forkify-erp-851w.vercel.app`; source at `github.com/myos-org/forkify-ERP` (source code plus `docs/audit` and `docs/engineering`). The backend suite was re-run locally on 2026-10-13: 22 tests, 0 failures. The project is complete and live; no roadmap is published.
 - **LifeSnail** — the project README and docs (private repository). Links only to the live app at `my-life-os-diary-web.vercel.app`; no code or screenshots are published.
 - **Code Review** — the project source and README (private repository). README roadmap items not in the code are labelled as planned.
 - **Alpide ERP** — Aniket's LinkedIn profile export (Oct 2026) and the areas of his own commits in the company repositories, described at feature level only. Company description from alpide.com.

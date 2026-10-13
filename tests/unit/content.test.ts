@@ -74,13 +74,12 @@ describe("projects", () => {
     ]);
   });
 
-  it("mark Klyro's roadmap as planned, not done", () => {
+  it("present Klyro as completed and live, with no planned work", () => {
     const klyro = getProject("klyro")!;
-    const phases = klyro.sections.flatMap((s) => s.blocks).find((b) => b.type === "phases");
-    expect(phases?.type).toBe("phases");
-    if (phases?.type !== "phases") return;
-    const hardening = phases.items.find((p) => p.title.includes("hardening"));
-    expect(hardening?.state).toBe("planned");
+    expect(klyro.status).toEqual({ label: "Completed · Live", tone: "live" });
+    expect(klyro.links.some((l) => l.kind === "live")).toBe(true);
+    const phases = klyro.sections.flatMap((s) => s.blocks).filter((b) => b.type === "phases");
+    for (const p of phases) if (p.type === "phases") expect(p.items.every((i) => i.state === "done")).toBe(true);
   });
 
   it("never show a source link for private-source Code Review", () => {

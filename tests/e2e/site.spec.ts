@@ -62,7 +62,7 @@ test.describe("home", () => {
     await expect(work.getByRole("link", { name: "LifeSnail", exact: true })).toHaveAttribute("href", "/work/lifesnail");
     await expect(work.getByRole("link", { name: "Code Review", exact: true })).toHaveAttribute("href", "/work/code-review");
     await expect(work.getByText("Live · source private")).toBeVisible();
-    await expect(work.getByText("In active development")).toBeVisible();
+    await expect(work.getByText("Completed · Live")).toBeVisible();
     await expect(work.getByText("In development · source private")).toBeVisible();
   });
 
@@ -270,7 +270,7 @@ test.describe("case studies", () => {
     await expect(link).toHaveAttribute("href", "https://github.com/myos-org/forkify-ERP");
     await expect(page.locator("main").getByRole("link", { name: /Open the live app/ })).toHaveAttribute("href", "https://forkify-erp-851w.vercel.app/");
     await expect(link).toHaveAttribute("target", "_blank");
-    await expect(page.getByText("Planned", { exact: true })).toBeVisible();
+    await expect(page.getByText("Planned", { exact: true })).toHaveCount(0);
   });
 
   test("Code Review exposes no source links", async ({ page }) => {

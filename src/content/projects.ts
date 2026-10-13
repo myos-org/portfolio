@@ -4,6 +4,7 @@ import type { Project } from "@/lib/types";
  * Every claim below is traceable:
  *  - Klyro: github.com/myos-org/forkify-ERP (source, docs/audit, docs/engineering),
  *    with the backend suite re-run locally on 2026-10-13 (22 tests, 0 failures).
+ *    Completed and live (confirmed by Aniket); no roadmap is published.
  *  - LifeSnail: the project's own README and docs (private repository). No
  *    code, screenshots or links are published.
  *  - Code Review: the project's source and README (private repository).
@@ -18,11 +19,11 @@ const klyro: Project = {
   formerly: "Forkify ERP",
   category: "Restaurant operations & ERP platform",
   summary:
-    "A multi-branch restaurant ERP — Spring Boot API, React web app and React Native mobile app — that began as my college project and is now being rebuilt with production habits.",
+    "A multi-branch restaurant ERP — Spring Boot API, React web app and React Native mobile app — that began as my college project and was finished with production habits. Completed and live.",
   intro:
-    "Klyro connects the operational work of a multi-branch restaurant business — recipes and their costs, raw-material stock, purchasing, inter-branch transfers, menus, sales and loyalty — behind one API used by a web app and a mobile app. It started as Forkify ERP, my college project, and I've kept developing it well past that scope.",
-  status: { label: "In active development", tone: "active" },
-  period: "2026 — present",
+    "Klyro connects the operational work of a multi-branch restaurant business — recipes and their costs, raw-material stock, purchasing, inter-branch transfers, menus, sales and loyalty — behind one API used by a web app and a mobile app. It started as Forkify ERP, my college project, and I took it well past that scope — audited, tested, rebranded and shipped. The project is complete and live.",
+  status: { label: "Completed · Live", tone: "live" },
+  period: "Mar — Oct 2026",
   role: "Backend, web and mobile development",
   stack: [
     "Java 17",
@@ -105,7 +106,7 @@ const klyro: Project = {
       blocks: [
         {
           type: "p",
-          text: "The project has three distinct stages, and it matters to keep them apart: what the college project delivered, what I've done since, and what is still a plan.",
+          text: "The project went through four stages: what the college project delivered, getting it ready to host, hardening it, and shipping it under a new name.",
         },
         {
           type: "phases",
@@ -145,21 +146,7 @@ const klyro: Project = {
                 "User-facing names changed; packages, tables, API routes and mobile bundle IDs deliberately kept",
               ],
             },
-            {
-              period: "Next",
-              title: "Engineering hardening",
-              state: "planned",
-              points: [
-                "Composite indexes, optimistic locking on master data and row locks on stock updates",
-                "Redis caching, a transactional outbox with Kafka, and idempotency keys on mutations",
-                "Structured logging with correlation IDs, rate limiting, multi-tenancy and offline mobile sync",
-              ],
-            },
           ],
-        },
-        {
-          type: "note",
-          text: "The hardening stage is a roadmap, not shipped work. The repository's Docker Compose file already provisions Redis and Kafka containers, but no application code uses them yet.",
         },
       ],
     },
@@ -336,7 +323,7 @@ const klyro: Project = {
     },
     {
       id: "lessons",
-      title: "Lessons and next steps",
+      title: "Lessons",
       blocks: [
         {
           type: "list",
@@ -346,10 +333,6 @@ const klyro: Project = {
             "Clients and server drift apart quietly. Tests at the API boundary catch missing endpoints before a screen does.",
             "A rename is a product change, not a schema migration. Keeping technical identifiers stable made the rebrand low-risk.",
           ],
-        },
-        {
-          type: "p",
-          text: "Next on the roadmap: indexes and locking on inventory updates, caching for read-heavy catalogue and report endpoints, an outbox for reliable events, idempotency keys for retries, and moving the web app from Create React App to Vite.",
         },
       ],
     },
