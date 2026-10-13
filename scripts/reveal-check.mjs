@@ -1,0 +1,10 @@
+import { chromium } from "@playwright/test";
+const b = await chromium.launch();
+const p = await b.newPage({ reducedMotion: "no-preference" });
+await p.goto("http://localhost:3100/");
+const before = await p.locator("#contact [data-reveal]").first().evaluate(e => getComputedStyle(e).opacity);
+await p.locator("#contact").scrollIntoViewIfNeeded(); await p.waitForTimeout(900);
+const after = await p.locator("#contact [data-reveal]").first().evaluate(e => getComputedStyle(e).opacity);
+const dot = await p.locator(".trace-dot").evaluate(e => getComputedStyle(e).animationName);
+console.log({ before, after, dot });
+await b.close();
